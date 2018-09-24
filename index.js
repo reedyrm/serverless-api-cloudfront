@@ -105,7 +105,7 @@ class ServerlessApiCloudFrontPlugin {
     }
     
     
-    const originPath = this.getConfig('originPath', `/${this.options.stage}`);
+    const originPath = this.getConfig('originPath', `/${this.options.stage}`, {emptyIsValid: true});
     if (originPath !== null) {
       distributionConfig.Origins[0].OriginPath = originPath;
     } else {
@@ -175,8 +175,16 @@ class ServerlessApiCloudFrontPlugin {
     distributionConfig.DefaultCacheBehavior.CachedMethods = ['HEAD', 'GET', 'OPTIONS'];
   }
 
-  getConfig(field, defaultValue) {
-    return _.get(this.serverless, `service.custom.apiCloudFront.${field}`, defaultValue)
+  getConfig(field, defaultValue, options = {}) {
+    const { emptyIsValid = false } = options;
+    
+    const returnValue = _.get(this.serverless, `service.custom.apiCloudFront.${field}`);
+    
+    if(emptyIsValid && _.isEmpty(returnValue)) {
+      return returnValue;
+    } else {
+      return returnValue || defaultValue;
+    }
   }
 }
 
