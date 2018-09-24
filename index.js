@@ -68,6 +68,7 @@ class ServerlessApiCloudFrontPlugin {
     this.prepareCertificate(distributionConfig);
     this.prepareWaf(distributionConfig);
     this.prepareCompress(distributionConfig);
+    this.prepareCachedVerbs(distributionConfig);
   }
 
   prepareLogging(distributionConfig) {
@@ -168,6 +169,10 @@ class ServerlessApiCloudFrontPlugin {
   
   prepareCompress(distributionConfig) {
     distributionConfig.DefaultCacheBehavior.Compress = (this.getConfig('compress', false) === true) ? true : false;
+  }
+  
+  prepareCachedVerbs(distributionConfig) {
+    distributionConfig.DefaultCacheBehavior.CachedMethods = ['HEAD', 'GET', 'OPTIONS'];
   }
 
   getConfig(field, defaultValue) {
