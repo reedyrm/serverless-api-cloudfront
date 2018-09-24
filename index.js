@@ -98,7 +98,18 @@ class ServerlessApiCloudFrontPlugin {
   }
 
   prepareOrigins(distributionConfig) {
-    distributionConfig.Origins[0].OriginPath = `/${this.options.stage}`;
+    const originDomain = this.getConfig('originDomainName', null);
+    if (originDomain !== null) {
+      distributionConfig.Origins[0].DomainName = originDomain;
+    }
+    
+    
+    const originPath = this.getConfig('originPath', `/${this.options.stage}`);
+    if (originPath !== null) {
+      distributionConfig.Origins[0].OriginPath = originPath;
+    } else {
+      delete distributionConfig.Origins[0].OriginPath;
+    }
   }
 
   prepareCookies(distributionConfig) {
