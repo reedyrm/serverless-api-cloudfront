@@ -71,6 +71,7 @@ class ServerlessApiCloudFrontPlugin {
     this.prepareCachedVerbs(distributionConfig);
     this.prepareTTLs(distributionConfig);
     this.prepareRootObject(distributionConfig);
+    this.prepareCustomErrorResponses(distributionConfig);
   }
 
   prepareLogging(distributionConfig) {
@@ -190,6 +191,19 @@ class ServerlessApiCloudFrontPlugin {
       distributionConfig.DefaultRootObject = defaultRootObject;
     }
   }
+  
+  prepareCustomErrorResponses(distributionConfig) {
+    const customErrorResponse = this.getConfig('customErrorResponses', null);
+    
+    //CustomErrorResponses
+    if(customErrorResponse !== null) {
+      distributionConfig.CustomErrorResponses = Array.isArray(customErrorResponse) ? customErrorResponse : [ customErrorResponse ];
+    } else {
+      delete distributionConfig.CustomErrorResponses;
+    }
+    
+  }
+  
 
   getConfig(field, defaultValue, options = {}) {
     const { emptyIsValid = false } = options;
