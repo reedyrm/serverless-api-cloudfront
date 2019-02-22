@@ -70,6 +70,7 @@ class ServerlessApiCloudFrontPlugin {
     this.prepareCompress(distributionConfig);
     this.prepareCachedVerbs(distributionConfig);
     this.prepareTTLs(distributionConfig);
+    this.prepareRootObject(distributionConfig);
   }
 
   prepareLogging(distributionConfig) {
@@ -180,6 +181,14 @@ class ServerlessApiCloudFrontPlugin {
     distributionConfig.DefaultCacheBehavior.MinTTL = this.getConfig('MinTTL', 0);
     distributionConfig.DefaultCacheBehavior.MaxTTL = this.getConfig('MaxTTL', 0);
     distributionConfig.DefaultCacheBehavior.DefaultTTL = this.getConfig('DefaultTTL', 0);
+  }
+  
+  prepareRootObject(distributionConfig) {
+    const defaultRootObject = this.getConfig('defaultRootObject', '');
+    
+    if(defaultRootObject) {
+      distributionConfig.DefaultRootObject = defaultRootObject;
+    }
   }
 
   getConfig(field, defaultValue, options = {}) {
