@@ -86,3 +86,9 @@ headers: all
 ```
 querystring: all
 ```
+
+* `MinTTL`, `MaxTTL`, `DefaultTTL` 
+
+* `defaultRootObject`
+
+* `customErrorResponses`
