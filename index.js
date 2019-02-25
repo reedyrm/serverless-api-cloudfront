@@ -72,6 +72,7 @@ class ServerlessApiCloudFrontPlugin {
     this.prepareTTLs(distributionConfig);
     this.prepareRootObject(distributionConfig);
     this.prepareCustomErrorResponses(distributionConfig);
+    this.prepareCacheBehaviors(distributionConfig);
   }
 
   prepareLogging(distributionConfig) {
@@ -204,6 +205,16 @@ class ServerlessApiCloudFrontPlugin {
     
   }
   
+  prepareCacheBehaviors(distributionConfig) {
+    const cacheBehaviors = this.getConfig('cacheBehaviors', null);
+  
+    //CustomErrorResponses
+    if(cacheBehaviors !== null) {
+      distributionConfig.CacheBehaviors = Array.isArray(cacheBehaviors) ? cacheBehaviors : [ cacheBehaviors ];
+    } else {
+      delete distributionConfig.CacheBehaviors;
+    }
+  }
 
   getConfig(field, defaultValue, options = {}) {
     const { emptyIsValid = false } = options;

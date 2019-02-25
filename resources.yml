@@ -25,6 +25,7 @@ Resources:
         Aliases:
           - domain.tld
         PriceClass: PriceClass_All
+        CacheBehaviors: []
         DefaultCacheBehavior:
           AllowedMethods:
           - DELETE
@@ -37,6 +38,7 @@ Resources:
           CachedMethods:
           - HEAD
           - GET
+          - OPTIONS
           ForwardedValues:
             QueryString: true
             Headers: []
