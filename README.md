@@ -1,5 +1,7 @@
 # serverless-api-cloudfront
 
+This has been forked from the original.  The intent of this fork is allow more modular control.  
+
 [![serverless](http://public.serverless.com/badges/v3.svg)](http://www.serverless.com)
 [![npm version](https://badge.fury.io/js/serverless-api-cloudfront.svg)](https://badge.fury.io/js/serverless-api-cloudfront)
 [![MIT licensed](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/Droplr/serverless-api-cloudfront/master/LICENSE)
@@ -92,3 +94,7 @@ querystring: all
 * `defaultRootObject`
 
 * `customErrorResponses`
+
+* `origins`
+
+* `cacheBehaviors`

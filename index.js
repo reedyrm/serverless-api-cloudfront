@@ -103,6 +103,12 @@ class ServerlessApiCloudFrontPlugin {
   }
 
   prepareOrigins(distributionConfig) {
+    const originProtocolPolicy = this.getConfig('originProtocolPolicy', null);
+    if(originProtocolPolicy !== null) {
+      distributionConfig.Origins[0].OriginProtocolPolicy = originProtocolPolicy;
+    }
+    
+    
     const originDomain = this.getConfig('originDomainName', null);
     if (originDomain !== null) {
       distributionConfig.Origins[0].DomainName = originDomain;
